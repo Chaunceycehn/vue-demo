@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .transRed {
+            background-color: red;
+            height: 30px;
+        }
+    </style>
+</head>
+<div id="app">
+    <!-- 过滤器 -->
+    {{date | formatDate}} {{apple}}
+    <span v-text="apple"></span>
+    <span v-html="banana"></span>
+    <div v-bind:class="className"></div>
+    <div :class="className"></div>
+
+    <button v-on:click="count">{{countnum}}</button>
+    <button @click="count">{{countnum}}</button>
+
+</div>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        // 需求在页面中实时显示当前时间
+        // 在月份日期小时小于10的时候补0
+        var plusDate = function (value) {
+            return value < 10 ? '0' + value : value
+        }
+        var app = new Vue({
+            el: "#app",
+            data: {
+                date: new Date(),
+                apple: '苹果',
+                banana: '<span style="color : yellow"> 香蕉</span>',
+                className: 'transRed',
+                countnum: 0
+            },
+            methods: {
+                count:function(){
+                    this.countnum ++;
+                }
+            },
+            //定义过滤器
+            filters: {
+                formatDate: function (value) {
+                    //将字符串转化成date类型
+                    var date = new Date(value);
+                    var y = date.getFullYear()
+                    var month = plusDate(date.getMonth() + 1)
+                    var day = plusDate(date.getDate())
+                    var hours = plusDate(date.getHours())
+                    var min = plusDate(date.getMinutes())
+                    var sec = plusDate(date.getSeconds())
+                    return y + '--' + month + '--' + day + '--' + hours + '--' + min + '--' + sec
+
+                }
+            },
+            mounted: function () {
+                var _this = this;//this代表的就是vue实例
+                //serInerval()
+                this.timer = setInterval((x) => {
+                    _this.date = new Date()
+                }, 1000)
+            },
+            beforeDestroy: function () {
+                //清除定时器
+                if (this.timer) {
+                    clearInterval(this.timer)
+                }
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
