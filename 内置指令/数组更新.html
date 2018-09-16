@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+    <style>
+    </style>
+</head>
+<div id="app">
+    <div v-for="study in arr">{{study}}</div>
+    <button @click='sortArr'>点我排序</button>
+    <button @click='reverseArr'>点我反转</button>
+    <br>
+    <hr>
+    改变数组指定项和长度检测不到
+    <button @click='changeOne'>改变数组指定项</button>
+    <button @click='changeOne'>改变数组长度</button>
+    返回字符串中含有OO的项
+    {{matchOO}}
+
+</div>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                arr: ['book', 'pen', 'pencli']
+            },
+            computed:{
+                //要过滤的每一项
+                matchOO:function(){
+                    return this.arr.filter(function(book){
+                        return book.match("oo");
+                    });
+                }
+            },
+            methods: {
+                sortArr: function () {
+                    this.arr.sort(function (a, b){
+                        return a.length-b.length;
+                    })
+                },
+                reverseArr:function(){
+                    this.arr.reverse()
+                },
+                //改变数组指定项
+                changeOne:function(){
+                    this.arr[0] = 'car'
+                },
+                changeLength:function(){
+                    this.arr.length = 1
+                }
+            }
+        })
+        //改变vue的第一项
+        Vue.set(app.arr,1,"car");
+    </script>
+</body>
+
+</html>

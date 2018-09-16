@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+    <style>
+    </style>
+</head>
+<div id="app">
+    v-for的用法：v-for一定是写在要遍历的元素上，v-for后接等,类似于ITEM in items
+    遍历多个对象一定是数组
+    <br> (1)遍历多个对象
+    <br>
+    <ul>
+        <li v-for="vuemth in vueMethods">{{vuemth.name}}</li>
+    </ul>
+    <br> 带索引的写法:括号的第一个变量代表item第二个变量代表index
+    <ul>
+        <li v-for="(vuemth,index) in vueMethods">{{index}} : {{vuemth.name}}</li>
+    </ul>
+    <hr>
+    遍历一个对象的多个属性
+    <br>
+    <span v-for="value in girl">{{value}}</span>
+    <br>
+    拿到value,key,index的写法  v-k-i外开
+    <div v-for="(value,key,index) in girl">{{value}}|{{key}}|{{index}}</div>
+</div>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                vueMethods: [
+                    { name: '多思考' },
+                    { name: '多练习' },
+                    { name: '多学习' }
+
+                ],
+                girl:{
+                    girl1:'xxx',
+                    girl2:'yyy',
+                    girl3:'zzz',
+
+
+                }
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

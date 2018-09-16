@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+    <style>
+    </style>
+</head>
+<div id="app">
+    v-if后面接的是等号，等号后的内容必须是布尔值
+    <p v-if="false"> {{msg}}</p>
+    <p v-else-if="true"> {{msg2}}</p>
+    <p v-else> {{oncedata}}</p>
+    <hr> v-if的实例用法:点击按钮实现用户名和密码的切换,不想让其复用的标签或元素增加key即可。
+    <div v-if="type === 'name'">
+        用户名：
+        <input type="text" placeholder="请输入用户名" key='name'>
+    </div>
+    <div v-else="type === 'pw'">
+        密码
+        <input type="text" placeholder="密码" key='pw'>
+    </div>
+    <button @click="toggleType"></button>
+    <hr>
+    v-show:显现取决于布尔值
+    v-id和vshow
+    <br>
+    <p v-show="9>a">我辈渲染</p>
+    <button @click="acount"></button>
+
+</div>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: '村里有个姑娘',
+                msg2: '村里有个下哦啊飘',
+                oncedata: '长得好看',
+                type:"name",
+                a:0
+            },
+            methods:{
+                toggleType:function(){
+                    // if(this.type === "name"){
+                    //     this.type = 'pw'
+                    // }
+                    // else{
+                    //     this.type = 'name'
+                    // }
+                    this.type = (this.type === 'name' ? 'pw':'name')
+                },
+                acount:function(){
+                    this.a = (this.a > 10 ? this.a = 0 : this.a= this.a +1 )
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
