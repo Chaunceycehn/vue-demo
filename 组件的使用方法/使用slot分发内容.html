@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app" style="border:1px solid red; height: 100px;">
+        <name-componet>
+            <h3 slot="header">我是标题</h3>
+            <p>正文</p>
+            <p>正文</p>
+            <p slot="footer">底部信息</p>
+        </name-componet>
+        <xx-component>
+            <template slot="abc" slot-scope="prop">
+                {{prop.text}} {{prop.ss}}
+
+            </template>
+        </xx-component>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            components: {
+                'my-component': {
+                    template: '<div><slot> xxxxx </slot></div>'
+                },
+                'name-componet': {
+                    template:
+                        '<div>\
+                        <div class="header">\n' +
+                        '<slot name="header">\n' + ' \n' +
+                        ' </slot>\n' + '</div>\n' +
+                        '<div class="contatiner">\n' +
+                        '<slot>\n' + ' \n' + ' </slot>\n' +
+                        '</div>\n' +
+                        '<div class="footer">\n' +
+                        '<slot name="footer">\n' + '\n' +
+                        ' </slot> \n' +
+                        '</div>' + ' </div>',
+                    mounted: function () {
+                        var slots = this.$slots
+                        var header = this.$slots.header
+                        var text = header[0].elm.innerText
+                        console.log(slots);
+                        console.log(header);
+                        console.log(text);
+                        
+                    }
+                },
+                'xx-component': {
+                    template: '<div>\
+<slot text="我是来自子组件的数据" ss="fdjkfjlsd" name="abc">\
+                        </slot>\
+                        </div> '
+                },
+
+            },
+            methods: {
+                plus: function () { }
+            },
+            data: {
+                parentmsg: '村里 有个姑娘'
+            },
+
+        })
+    </script>
+</body>
+
+</html>

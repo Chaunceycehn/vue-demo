@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    在父组件里向子组件传消息。
+    <div id="app" style="border:1px solid red">
+        <h5 style="text-align: center">我是父组件</h5>
+        <my-component msg="[3,8,9]"></my-component>
+        <my-component :msg="[3,8,9]"></my-component>
+
+
+        <hr>使用V-BIND动态绑定-把input中的msg传递给子组件 
+        <input type="text" v-model="parentmsg">
+        <bind-component v-bind:msg="parentmsg"></bind-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        //全局注册
+        // Vue.component(tag,{
+        //     template:'<div></div>'
+        // })
+        //注册组件
+
+        Vue.component('my-component', {
+            template: '<div>我是一个组件 </div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            components: {
+                'my-component': {
+                    props:['msg'],
+                    template: '<div style="border:1px solid green">{{msg}} {{msg.length}}</div>',
+                },
+                'bind-component': {
+                    props:['msg'],
+                    template: '<div style="border:1px solid #666">{{msg}}  {{msg.length}}</div>',
+
+                },
+
+            },
+            methods:{
+                plus:function(){}
+            },
+            data: {
+                parentmsg:'村里 有个姑娘'
+            }
+        })
+    </script>
+</body>
+
+</html>

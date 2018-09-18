@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+    <style>
+    </style>
+</head>
+<div id="app">
+    v-model 的用法
+    <br> input和textarea
+    <input type="text" v-model="value1"> {{value1}}
+    <br>
+    <textarea name="value" id="" cols="30" rows="5" v-model="value2">
+    </textarea> {{value2}}
+    <hr> 单选按钮
+    <br> 单个单选框
+    <input type="radio" v-model="oneradio"> {{oneradio}}
+    <br>-----用v-model不生效
+    <input type="radio" v-bind:checked="oneradio">
+    <br> 多个个单选框
+    <br> 狗蛋：
+    <input type="radio" name="checks" value="狗蛋" v-model="checks">
+    <br>翠花：
+    <input type="radio" name="checks" value="翠花" v-model="checks">
+    <br>酸菜：
+    <input type="radio" name="checks" value="酸菜" v-model="checks">
+    <br>{{checks}}
+    <hr> 复选框： 单个复选框 用v-bind
+    <input type="checkbox" value="复选框" v-bind:checked="checkbox"> {{checkbox}}
+    <br> 用v-modle
+    <input type="checkbox" value="复选框" v-model="checkbox"> {{checkbox}}
+    <hr> 多个复选框
+    <br>
+    <input type="checkbox" value="狗蛋1" v-model="checks">
+    <input type="checkbox" value="翠花2" v-model="checks">
+    <input type="checkbox" value="酸菜3" v-model="checks">
+    <br>{{checks}}
+    <hr> 下拉框
+    <br>
+    <select name="" id="" v-model="Select">
+        <option value="狗蛋">狗蛋</option>
+        <option value="翠花">翠花</option>
+        <option value="酸菜">酸菜</option>
+
+    </select>
+    {{Select}}
+    <hr> 多选的下拉框
+    <br>
+    <select name="" id="" v-model="Select2" multiple>
+        <option value="狗蛋">狗蛋</option>
+        <option value="翠花">翠花</option>
+        <option value="酸菜">酸菜</option>
+
+    </select>
+    {{Select2}}
+    <hr> 绑定值：
+    <br>
+    <input type="radio" v-model="picked" v-bind:value="value"> {{picked}}
+    <br> 复选框：选中不选中value不一样
+    <br>
+    <input type="checkbox" v-model="toggle" :true-value='value3' :false-value="value4"> {{toggle}}
+    <br> 被选中 {{toggle == value3}}
+    <br> 未被选中 {{toggle == value4}}
+    <hr>
+    <hr> 多选的下拉框
+    <br>
+    <select name="" id="" v-model="Select3" :value="{num:1}"> 
+        <option value="狗蛋">狗蛋</option>
+        <option value="翠花">翠花</option>
+        <option value="酸菜">酸菜</option>
+
+    </select>
+    {{Select3}}
+    <hr>
+
+</div>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                value1: '村里有个姑娘',
+                value2: '村里有个姑娘',
+                oneradio: true,
+                checkname: '',
+                checkbox: '',
+                checks: [],
+                Select: '',
+                Select2: [],
+                picked: true,
+                value: '111',
+                toggle: true,
+                value3: '选我',
+                value4: '选他',
+                Select3: []
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

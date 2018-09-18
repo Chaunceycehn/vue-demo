@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app" style="border:1px solid red">
+        <my-component></my-component>
+        <btn-component></btn-component> 
+        <btn-component></btn-component>   
+
+        <table>
+            <tbody is="my-component"></tbody>
+        </table>
+    </div>
+    <div id="bpp" style="border:1px solid brown">
+        <my-component></my-component>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        //全局注册
+        // Vue.component(tag,{
+        //     template:'<div></div>'
+        // })
+        //注册组件
+
+        Vue.component('my-component', {
+            template: '<div>我是一个组件 </div>'
+        }) 
+        var app = new Vue({
+            el: '#app',
+            components: {
+                'my-component': {
+                    template: '<div>我是app的一个组件 </div>'
+                },
+                'btn-component': {
+                    template: `
+                        <button @click="count++">{{count}}</button>
+                    `,
+                    data:function(){
+                        return {
+                            count:0
+                        }
+                    }
+
+                },
+
+            },
+            methods:{
+                plus:function(){}
+            },
+            data: {
+
+            }
+        })
+        var bpp = new Vue({
+            el: '#bpp',
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

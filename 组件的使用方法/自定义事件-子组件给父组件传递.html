@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>您好,您现在的银行余额是{{total}}元</p>
+        <btn-compnent @change="handleTotal"></btn-compnent>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        //关于
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            components: {
+                'btn-compnent': {
+                    template: '<div>\
+        <button @click="handleincrease">+1</button> \
+        <button @click="handlereduce">-1</button>\
+        </div>',
+                    data: function () {
+                        return {
+                            count: 0
+                        }
+                    },
+                    methods: {
+                        handleincrease: function () {
+                            this.count++;
+                            this.$emit('change', this.count);
+                        },
+                        handlereduce: function () {
+                            this.count--;
+                            this.$emit('change', this.count);
+                        }
+                    }
+                }
+            },
+            methods: {
+                handleTotal: function (total) {
+                    this.total = total;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

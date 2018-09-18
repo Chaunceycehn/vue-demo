@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-acomponent ref='a'></my-acomponent>
+        <my-bcomponent ref='b'></my-bcomponent>
+        <child-componet ref='c'></child-componet>
+        {{a}}
+        <br>
+        <button @click="getChildData">给我子组件的数据！</button>
+        {{formchild}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                bus: new Vue(),
+                a: 'xxx',
+                formchild: '还未拿到'
+            },
+            components: {
+                'my-acomponent': {
+                    template: '<div><button @click="handle">点击我向B组件传递数据</button></div> ',
+                    data: function () {
+                        return {
+                            aaa: '我是来自A组件的内容'
+                        }
+                    },
+                    methods: {
+                        handle: function () {
+                            this.$root.bus.$emit('lala', this.aaa);
+                        }
+                    }
+                },
+                'my-bcomponent': {
+                    template: '<div></div>',
+                    created: function () {
+                        //A组件在实例创建的时候就监听事件---lala事件
+                        this.$root.bus.$on('lala', function (value) {
+                            alert(value)
+                        });
+                    }
+                },
+                'child-componet': {
+                    template: '<button @click="setfatherdata"> 点我改父亲属性 </button>',
+                    methods: {
+                        setfatherdata: function () {
+                            this.$root.a = "改！"
+                        }
+                    }
+                },
+                'c': {
+                    template: '<button @click="setfatherdata"> 点我改父亲属性 </button>',
+                    data: function () {
+                        return {
+                            aaa: '我是来自A组件的内容'
+                        }
+                    },
+                }
+            },
+            methods: {
+                getChildData: function () {
+                    //用来拿子组件中的内容 ---- $refs
+                    this.formchild = this.$refs.a.aaa;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
