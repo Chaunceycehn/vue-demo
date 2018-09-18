@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        获取焦点
+        <input type="text" v-zidingyi>
+
+        <div v-zidingyi:goudan.a.b.c="obj"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        Vue.directive('focus', {
+            inserted: function (el) {
+                el.focus();
+            },
+        })
+        
+        Vue.directive('zidingyi', {
+            bind: function (el,binding,vnode) {
+                var keys = [];
+                for(let key in vnode ){
+                    keys.push(key)
+                }
+                el.innerHTML = 
+                    'name' + '<br>' +binding.name + '<br>' +
+                    'value' + '<br>' +binding.value + '<br>' +
+                    'expression' + '<br>' +binding.expression + '<br>' +
+                    'argument' + '<br>' +binding.arg + '<br>' +
+                    'modifiers' + '<br>' +JSON.stringify(binding.modifiers) + '<br>'+ 
+                    'vnode中的key' + '<br>' + keys.join('--') + '<br>' 
+
+            },
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                obj:'我是自定义指令绑定的值'
+            },
+
+        })
+    </script>
+</body>
+
+</html>

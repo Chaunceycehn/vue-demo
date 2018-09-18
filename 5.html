@@ -1,67 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--< my - component : name = "name" @input="showName" ></my - component > -->
+<my-component : name="name" v-model="name"></my-component>
+<br> {{ name }}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <div id="app" style="border:1px solid red">
-            <my-acomponent></my-acomponent>
-            <my-bcomponent></my-bcomponent>
-            <comp-a></comp-a>
-            <comp-b></comp-b>
-
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <script>
-        //全局注册
-        // Vue.component(tag,{
-        //     template:'<div></div>'
-        // })
-        //注册组件
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-                msg: "aaa",
-                bus: new Vue()
-            },
-            components: {
-                'compA':{
-                    template:'<div><button @click="handle">我向B组件传递数据</button></div>',
-                    data:function(){
-                        return {
-                            aaa:'aaaaaaaaaaa'
-                        }
-                    },
-                    methods:{
-                        handle:function(){
-                            this.$root.bus.$emit('ab',this.aaa)
-                        }
-                    }
-                },
-                'compB':{
-                    template: '<div></div>',
-                    created:function(){
-                        this.$root.bus.$on('ab',(value)=>{
-                            alert(value)
-                        })
-                    },
-
-                },
-                
-            },
-            methods: {
-                datago: function (value) {
-                    this.msg = value
-                }
-            }
-        })
-    </script>
-</body>
-
-</html>
+<script>
+    Vue.component('my-component', {
+        render: function (createElement) {
+            return createElement('div', this.$scopedSlots.default({
+                text: '我是子组件传递过来的数据',
+                msg: 'scopetext'
+            }))
+        }
+    })
+</script>
